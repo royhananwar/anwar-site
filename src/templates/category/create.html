@@ -1,0 +1,9 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+    <form action="/create_category/" method="POST">
+        <label for="category_name">Category Name</label>
+        <input type="text" name="category_name"><br>
+        <input type="submit" value="Create">
+    </form>
+{% endblock %}
