@@ -4,5 +4,10 @@
     {% for category in categories %}
         <p>{{ category.id }}</p>
         <p>{{ category.name }}</p>
+        <br>
+        <br>
+        <a href="/detail_category/{{ category.id }}">Detail</a>
+        <a href="/update_category/{{ category.id }}">Update</a><br>
+        <a href="/detele_category/{{ category.id }}">Delete</a><br>
     {% endfor %}
 {% endblock %}

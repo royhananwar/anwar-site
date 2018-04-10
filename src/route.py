@@ -15,6 +15,12 @@ def list_category():
     print(categories)
     return render_template('category/index.html', categories=categories)
 
+# get detail category
+@app.route('/detail_category/<int:id>')
+def detail_category(id):
+    category = Category.query.get(id)
+    return render_template('category/detail.html', category=category)
+
 # create new category
 @app.route('/create_category/', methods=['POST', 'GET'])
 def create_category():
