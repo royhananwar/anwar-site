@@ -1,14 +1,14 @@
 {% extends 'homepage.html' %}
 
 {% block content %}
-    {% if posts %}
-        {% for post in posts %}
-            <p>{{ post.title }}</p>
-            <p>{{ post.body }}</p>
-            <p>{{ post.pub_date }}</p>
-            <p>{{ post.category }}</p>
-        {% endfor %}
-    {% else %}
-        <p>{{ datas }}</p>
-    {% endif %}
+    {% for post in posts %}
+        <p>{{ post.title }}</p>
+        <p>{{ post.body }}</p>
+        <p>{{ post.pub_date }}</p>
+        <p>{{ post.category }}</p>
+        <a href="/detail_post/{{ post.id }}">Detail</a>
+        <a href="/update_post/{{ post.id }}">Update</a><br>
+        <a href="/detele_post/{{ post.id }}">Delete</a><br>
+    {% endfor %}
+
 {% endblock %}
