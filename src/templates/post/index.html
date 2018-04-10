@@ -1,0 +1,14 @@
+{% extends 'homepage.html' %}
+
+{% block content %}
+    {% if posts %}
+        {% for post in posts %}
+            <p>{{ post.title }}</p>
+            <p>{{ post.body }}</p>
+            <p>{{ post.pub_date }}</p>
+            <p>{{ post.category }}</p>
+        {% endfor %}
+    {% else %}
+        <p>{{ datas }}</p>
+    {% endif %}
+{% endblock %}
