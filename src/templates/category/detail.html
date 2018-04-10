@@ -1,11 +1,13 @@
 {% extends 'homepage.html' %}
 
 {% block content %}
-    {{ category.id }}
-    {{ category.name }}
-    <br>
+    {% if category %}
+        {{ category.id }}
+        {{ category.name }}
+        <br>
 
-    <a href="/category/">Back to List Category</a><br>
-    <a href="/update_category/{{ category.id }}">Update</a><br>
-    <a href="/detele_category/{{ category.id }}">Delete</a><br>
+        <a href="/category/">Back to List Category</a><br>
+        <a href="/update_category/{{ category.id }}">Update</a><br>
+        <a href="/detele_category/{{ category.id }}">Delete</a><br>
+    {% endif %}
 {% endblock %}

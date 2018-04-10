@@ -1,9 +1,11 @@
 {% extends 'homepage.html' %}
 
 {% block content %}
-<form action="/update_category/{{ category.id }}" method="POST">
-    <label for="category_name">Category Name</label>
-    <input type="text" value="{{ category.name }}" name="category_name"><br>
-    <input type="submit" value="Update">
-</form>
+    {% if category %}
+        <form action="/update_category/{{ category.id }}" method="POST">
+            <label for="category_name">Category Name</label>
+            <input type="text" value="{{ category.name }}" name="category_name"><br>
+            <input type="submit" value="Update">
+        </form>
+    {% endif %}
 {% endblock %}

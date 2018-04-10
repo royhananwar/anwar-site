@@ -19,6 +19,9 @@ def list_category():
 @app.route('/detail_category/<int:id>')
 def detail_category(id):
     category = Category.query.get(id)
+    if category is None:
+        message = "Error 404, Category not found!"
+        return render_template('category/detail.html', message=message)
     return render_template('category/detail.html', category=category)
 
 # create new category
@@ -44,6 +47,9 @@ def update_category(id):
         return redirect(url_for('list_category'))
     else:
         category = Category.query.get(id)
+        if category is None:
+            message = "Error 404, Category not found!"
+            return render_template('category/update.html', message=message)
         return render_template('category/update.html', category=category)
 
 
