@@ -27,6 +27,19 @@ def create_category():
     else:
         return render_template('category/create.html')
 
+# update category
+@app.route('/update_category/<int:id>', methods=['POST', 'GET'])
+def update_category(id):
+    if request.method == 'POST':
+        category_name = request.form['category_name']
+        category = Category.query.get(id)
+        category.name = category_name
+        db.session.commit()
+        return redirect(url_for('list_category'))
+    else:
+        category = Category.query.get(id)
+        return render_template('category/update.html', category=category)
+
 # list all post
 @app.route('/post/')
 def list_post():
