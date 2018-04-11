@@ -65,7 +65,9 @@ def list_post():
 @app.route('/detail_post/<int:id>')
 def detail_post(id):
     post = Post.query.get(id)
-    # category = Category.query.get()
+    if post is None:
+        message = "Error 404, Post is not Found"
+        return render_template('post/detail.html', message=message)
     return render_template('post/detail.html', post=post)
 
 
@@ -85,6 +87,7 @@ def create_post():
         categories = Category.query.all()
         return render_template('post/create.html', categories=categories)
 
+# update post
 @app.route('/update_post/<int:id>', methods=['POST', 'GET'])
 def update_post(id):
     if request.method == 'POST':
@@ -103,6 +106,10 @@ def update_post(id):
         post = Post.query.get(id)
         category = Category.query.get(post.category_id)
         categories = Category.query.all()
+
+        if post is None:
+            message = "Error 404, Post is not Found"
+            return render_template('post/detail.html', message=message)
 
         return render_template('post/update.html', post=post, category=category, categories=categories)
 
