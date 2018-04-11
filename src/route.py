@@ -1,7 +1,8 @@
 from flask import render_template, redirect, request, url_for
 
-from app import app
-from models import db, Category, Post
+from src.app import app
+from src.models import db, Category, Post
+from src.views.authentication import register
 
 # index
 @app.route('/')

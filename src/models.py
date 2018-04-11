@@ -25,3 +25,15 @@ class Category(db.Model):
     def __repr__(self):
         return 'Category: {0}'.format(self.name)
 
+
+class User(db.Model):
+    username = db.Column(db.String(32), primary_key=True)
+    password = db.Column(db.String(225), nullable=False)
+    email = db.Column(db.String(32), unique=True)
+    name = db.Column(db.String(100), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+
+    def __repr__(self):
+        return '{0}'.format(self.username)
+
