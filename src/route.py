@@ -2,7 +2,7 @@ from flask import render_template, redirect, request, url_for
 
 from src.app import app
 from src.models import db, Category, Post
-from src.views.authentication import register
+from src.views.authentication import register, login
 
 # index
 @app.route('/')
