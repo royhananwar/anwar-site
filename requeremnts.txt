@@ -1,4 +1,5 @@
 alembic==0.9.9
+-e git+https://github.com/royhananwar/anwar-site.git@5cb65b064f0bb27a66db5126a23b5762ede709b9#egg=anwar_id
 astroid==1.6.3
 click==6.7
 colorama==0.3.9
@@ -13,6 +14,7 @@ lazy-object-proxy==1.3.1
 Mako==1.0.7
 MarkupSafe==1.0
 mccabe==0.6.1
+passlib==1.7.1
 psycopg2==2.7.4
 pylint==1.8.4
 python-dateutil==2.7.2
