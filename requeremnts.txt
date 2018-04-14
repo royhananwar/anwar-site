@@ -1,5 +1,4 @@
 alembic==0.9.9
--e git+https://github.com/royhananwar/anwar-site.git@5cb65b064f0bb27a66db5126a23b5762ede709b9#egg=anwar_id
 astroid==1.6.3
 click==6.7
 colorama==0.3.9
@@ -7,6 +6,7 @@ Flask==0.12.2
 Flask-Migrate==2.1.1
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
 isort==4.3.4
 itsdangerous==0.24
 Jinja2==2.10
@@ -23,3 +23,4 @@ six==1.11.0
 SQLAlchemy==1.2.6
 Werkzeug==0.14.1
 wrapt==1.10.11
+WTForms==2.1
