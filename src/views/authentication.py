@@ -38,7 +38,7 @@ def login():
         password_verify = pbkdf2_sha256.verify(password, user.password)
 
         if password_verify:
-            session['loged_in'] = True
+            session['logged_in'] = True
             session['username'] = username
             flash("Login Success {0}".format(username))
             return render_template('homepage.html')
