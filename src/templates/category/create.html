@@ -1,9 +1,14 @@
 {% extends 'homepage.html' %}
 
 {% block content %}
+    
+    {% for message in form.category_name.errors %}
+        <div>{{ message }}</div>
+    {% endfor %}
+
     <form action="/create_category/" method="POST">
-        <label for="category_name">Category Name</label>
-        <input type="text" name="category_name"><br>
+        {{ form.category_name.label }} <br>
+        {{ form.category_name }} <br>
         <input type="submit" value="Create">
     </form>
 {% endblock %}
