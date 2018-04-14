@@ -2,6 +2,7 @@ from flask import redirect, render_template, url_for, request
 
 from src.app import app
 from src.models import db, Category, Post
+from src.features import login_required
 
 
 # get all category
@@ -22,6 +23,7 @@ def detail_category(id):
 
 # create new category
 @app.route('/create_category/', methods=['POST', 'GET'])
+@login_required
 def create_category():
     if request.method == 'POST':
         category_name = request.form['category_name']
@@ -34,6 +36,7 @@ def create_category():
 
 # update category
 @app.route('/update_category/<int:id>', methods=['POST', 'GET'])
+@login_required
 def update_category(id):
     if request.method == 'POST':
         category_name = request.form['category_name']
