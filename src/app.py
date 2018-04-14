@@ -17,5 +17,6 @@ db_url = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(POSTGRES['user'], POSTGRES['p
 app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = "My Secret Key"
 
 db.init_app(app)

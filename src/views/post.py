@@ -1,7 +1,7 @@
 from flask import request, redirect, render_template, url_for
 
 from src.app import app
-from src.models import db, Post
+from src.models import db, Post, Category
 
 
 # list all post

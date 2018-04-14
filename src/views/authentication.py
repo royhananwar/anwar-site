@@ -1,9 +1,10 @@
-from flask import request, redirect, render_template, url_for
+from flask import request, redirect, render_template, url_for, session, flash
 
 from passlib.hash import pbkdf2_sha256
 
 from src.models import db, User
 from src.app import app
+from src.features import login_required
 
 
 @app.route('/register/', methods=['POST', 'GET'])
@@ -21,10 +22,9 @@ def register():
         db.session.add(user)
         db.session.commit()
         
-        return render_template('homepage.html')
+        return redirect(url_for('login'))
     else:
         return render_template('authentication/register.html')
-
 
 @app.route('/login/', methods=['POST', 'GET'])
 def login():
@@ -38,8 +38,19 @@ def login():
         password_verify = pbkdf2_sha256.verify(password, user.password)
 
         if password_verify:
+            session['loged_in'] = True
+            session['username'] = username
+            flash("Login Success {0}".format(username))
             return render_template('homepage.html')
         else:
+            flash("Login failed because password is not match")
             return render_template('authentication/login.html')
     else:
         return render_template('authentication/login.html')
+
+@app.route('/logout/')
+@login_required
+def logout():
+    session.clear()
+    flash("Success Logout")
+    return render_template('authentication/login.html')
