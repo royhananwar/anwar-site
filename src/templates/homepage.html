@@ -7,7 +7,10 @@
     <title>Anwar's Blog</title>
 </head>
 <body>
-    <center>{% include 'includes/404.html' %}</center>
+    <center>
+        {% include '_includes/404.html' %}
+        {% include '_includes/flash_message.html' %}
+    </center>
 
     {% block content %}
     {% endblock %}
