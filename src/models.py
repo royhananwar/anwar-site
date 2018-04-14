@@ -13,6 +13,9 @@ class Post(db.Model):
     
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
     category = db.relationship('Category', backref=db.backref('posts', lazy=True))
+
+    owner_id = db.Column(db.String, db.ForeignKey('user.username'), nullable=True)
+    owner = db.relationship('User', backref=db.backref('posts', lazy=True))
     
     def __repr__(self):
         return 'Post: {0}'.format(self.title)
