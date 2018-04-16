@@ -1,15 +1,45 @@
 {% extends 'homepage.html' %}
 
 {% block content %}
+
     <form action="/register/" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username"><br>
-        <label for="password">Password</label>
-        <input type="password" name="password"><br>
-        <label for="email">E-Mail</label>
-        <input type="text" name="email"><br>
-        <label for="name">Name</label>
-        <input type="text" name="name"><br>
+
+        {{ form.hidden_tag() }}
+
+        {{ form.username.label }}
+        {{ form.username}}
+
+        {% for message in form.username.errors %}
+            <span> {{ message }} </span>
+        {% endfor %}
+        <br>
+
+        {{ form.password.label }}
+        {{ form.password}}
+
+        {% for message in form.password.errors %}
+            <span> {{ message }} </span>
+        {% endfor %}
+        <br>
+
+        {{ form.password_confirm.label }}
+        {{ form.password_confirm}} <br>
+
+        {{ form.email.label }}
+        {{ form.email}}
+
+        {% for message in form.email.errors %}
+            <span> {{ message }} </span>
+        {% endfor %}
+        <br>
+
+        {{ form.name.label }}
+        {{ form.name}}
+
+        {% for message in form.name.errors %}
+            <span> {{ message }} </span>
+        {% endfor %}
+        <br>
 
         <input type="submit" value="Register">
     </form>

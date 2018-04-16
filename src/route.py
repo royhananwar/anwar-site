@@ -3,7 +3,6 @@ from flask import render_template, redirect, request, url_for
 from src.app import app
 from src.models import db, Category, Post
 from src.views import category, post, authentication
-from src.features import login_required
 
 # index
 @app.route('/')

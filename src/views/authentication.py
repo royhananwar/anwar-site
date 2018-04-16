@@ -5,26 +5,34 @@ from passlib.hash import pbkdf2_sha256
 from src.models import db, User
 from src.app import app
 from src.features import login_required
+from src.forms.authentication import RegisterForm
 
 
 @app.route('/register/', methods=['POST', 'GET'])
 def register():
-    if request.method == 'POST':
+    form = RegisterForm()
+    if request.method == 'POST': 
         username = request.form['username']
         password = request.form['password']
         email = request.form['email']
         name = request.form['name']
-
-        # hassing password
-        password_encrypt = pbkdf2_sha256.encrypt(password, rounds=2000, salt_size=16)
-
-        user = User(username=username, password=password_encrypt, email=email, name=name)
-        db.session.add(user)
-        db.session.commit()
-        
-        return redirect(url_for('login'))
+        if form.validate_on_submit():
+            # hassing password
+            password_encrypt = pbkdf2_sha256.encrypt(password, rounds=2000, salt_size=16)
+            try:
+                user = User(username=username, password=password_encrypt, email=email, name=name)
+                db.session.add(user)
+                db.session.commit()
+            except:
+                flash("Username has been selected, try another username")
+                return render_template('authentication/register.html', form=form)
+                
+            flash("Register complete, you can login right now!")
+            return redirect(url_for('login'))
+        else:
+            return render_template('authentication/register.html', form=form)
     else:
-        return render_template('authentication/register.html')
+        return render_template('authentication/register.html', form=form)
 
 @app.route('/login/', methods=['POST', 'GET'])
 def login():
