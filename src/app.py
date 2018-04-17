@@ -1,5 +1,7 @@
 from flask import Flask
 
+import os
+
 from src.models import db
 
 app = Flask(__name__)
@@ -15,7 +17,7 @@ POSTGRES = {
 db_url = 'postgresql://{0}:{1}@{2}:{3}/{4}'.format(POSTGRES['user'], POSTGRES['pw'], POSTGRES['host'], POSTGRES['port'], POSTGRES['db'])
 
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "My Secret Key"
 
