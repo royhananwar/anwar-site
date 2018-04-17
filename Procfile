@@ -1,2 +1,2 @@
-release: cd src && python manage.py db init
+release: cd src && python manage.py db upgrade
 web: gunicorn src.route:app
