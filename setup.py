@@ -14,6 +14,7 @@ setup(
         'Flask-Script==2.0.6',
         'Flask-SQLAlchemy==2.3.2',
         'Flask-WTF==0.14.2',
+        'gunicorn==19.7.1',
         'isort==4.3.4',
         'itsdangerous==0.24',
         'Jinja2==2.10',
