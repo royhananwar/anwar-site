@@ -5,11 +5,15 @@ from passlib.hash import pbkdf2_sha256
 from src.models import db, User
 from src.app import app
 from src.features import login_required
-from src.forms.authentication import RegisterForm
+from src.forms.authentication import RegisterForm, LoginForm
 
 
 @app.route('/register/', methods=['POST', 'GET'])
 def register():
+    '''
+        Function for register
+    '''
+
     form = RegisterForm()
     if request.method == 'POST': 
         username = request.form['username']
@@ -24,7 +28,7 @@ def register():
                 db.session.add(user)
                 db.session.commit()
             except:
-                flash("Username has been selected, try another username")
+                flash("Username or email has been selected, try another username or email")
                 return render_template('authentication/register.html', form=form)
                 
             flash("Register complete, you can login right now!")
@@ -34,31 +38,46 @@ def register():
     else:
         return render_template('authentication/register.html', form=form)
 
+
 @app.route('/login/', methods=['POST', 'GET'])
 def login():
+    ''' 
+        Function for login in blog 
+    '''
+
+    form = LoginForm()
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         user = User.query.get(username)
-
-        # checking password in db
-        password_verify = pbkdf2_sha256.verify(password, user.password)
-
-        if password_verify:
-            session['logged_in'] = True
-            session['username'] = username
-            flash("Login Success {0}".format(username))
-            return render_template('homepage.html')
+        if user is None: #check if user is none
+            flash("This user is not exist")
+            return render_template('authentication/login.html', form=form)
+        if form.validate_on_submit():
+            # checking password in db
+            password_verify = pbkdf2_sha256.verify(password, user.password)
+            if password_verify:
+                session['logged_in'] = True #set logged_in in session True, so can use login_required
+                session['username'] = username
+                flash("Login Success {0}".format(username))
+                return render_template('homepage.html')
+            else:
+                flash("Login failed because password is not match")
+                return render_template('authentication/login.html', form=form)
         else:
-            flash("Login failed because password is not match")
-            return render_template('authentication/login.html')
+            return render_template('authentication/login.html', form=form)
     else:
-        return render_template('authentication/login.html')
+        return render_template('authentication/login.html', form=form)
+
 
 @app.route('/logout/')
 @login_required
 def logout():
+    '''
+        Function for logout and clear session
+    ''' 
+
     session.clear()
     flash("Success Logout")
-    return render_template('authentication/login.html')
+    return redirect(url_for('login'))
+    

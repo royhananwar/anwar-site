@@ -3,10 +3,24 @@
 {% block content %}
 
     <form action="/login/" method="post">
-        <label for="username">Username</label>
-        <input type="text" name="username"><br>
-        <label for="password">Password</label>
-        <input type="password" name="password"><br>
+        {{ form.hidden_tag() }}
+        
+        {{ form.username.label }}
+        {{ form.username }}
+
+        {% for message in form.username.errors %}
+            <span>{{ message }}</span>
+        {% endfor %}
+        <br>
+
+        {{ form.password.label }}
+        {{ form.password }}
+
+        {% for message in form.password.errors %}
+            <span>{{ message }}</span>
+        {% endfor %}
+        <br>
+
         <input type="submit" value="Login">
     </form>
 
