@@ -12,3 +12,10 @@ def login_required(f):
             flash('Login first before do any process!')
             return redirect(url_for('login'))
     return wrap
+
+
+def clear_session():
+    '''
+        Function for clear session
+    '''
+    session.clear()

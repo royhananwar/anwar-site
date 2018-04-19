@@ -4,8 +4,8 @@ from passlib.hash import pbkdf2_sha256
 
 from src.models import db, User
 from src.app import app
-from src.features import login_required
-from src.forms.authentication import RegisterForm, LoginForm
+from src.features import login_required, clear_session
+from src.forms.authentication import RegisterForm, LoginForm, ChangePasswordForm
 
 
 @app.route('/register/', methods=['POST', 'GET'])
@@ -77,7 +77,37 @@ def logout():
         Function for logout and clear session
     ''' 
 
-    session.clear()
+    clear_session()
     flash("Success Logout")
     return redirect(url_for('login'))
-    
+
+
+@app.route('/change_password/', methods=['POST', 'GET'])
+@login_required
+def change_password():
+    '''
+        Function for change password
+    '''
+
+    form = ChangePasswordForm()
+    if request.method == 'POST':
+        old_password = request.form['old_password']
+        new_password = request.form['new_password']
+        if form.validate_on_submit():
+            username = session['username']
+            user = User.query.get(username)
+            password_verify = pbkdf2_sha256.verify(old_password, user.password)
+            if password_verify:
+                new_password_hash = pbkdf2_sha256.encrypt(new_password, rounds=2000, salt_size=16)
+                user.password = new_password_hash
+                db.session.commit() #save new password to db 
+                clear_session() #clear session before logout
+                flash("Password is changed")
+                return redirect(url_for('login'))
+            else:
+                flash("Old password is not correct")
+                return render_template('authentication/change_password.html', form=form)
+        else:
+            return render_template('authentication/change_password.html', form=form)
+    else:
+        return render_template('authentication/change_password.html', form=form)
